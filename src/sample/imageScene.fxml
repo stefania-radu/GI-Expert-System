@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="346.0" prefWidth="553.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ImageScene">
+   <children>
+      <ImageView fitHeight="258.0" fitWidth="203.0" layoutX="350.0" opacity="0.52" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@LungCACXR.PNG" />
+         </image>
+      </ImageView>
+      <CheckBox layoutX="124.0" layoutY="162.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="98.0" text="fatigue" textFill="#1e1d1d">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </CheckBox>
+      <CheckBox layoutX="124.0" layoutY="200.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="98.0" text="cough" textFill="#1e1d1d">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </CheckBox>
+      <CheckBox layoutX="124.0" layoutY="238.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="125.0" text="chest pain" textFill="#1e1d1d">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </CheckBox>
+      <Label alignment="TOP_RIGHT" layoutX="68.0" layoutY="68.0" text="What are your symptoms?" textAlignment="CENTER" textFill="#1321e4">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button layoutX="473.0" layoutY="295.0" mnemonicParsing="false" text="Next" />
+   </children>
+</AnchorPane>
