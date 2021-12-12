@@ -4,5 +4,5 @@ module Demo {
     requires javafx.fxml;
     requires javafx.base;
 
-    opens sample;
+    opens ui;
 }

@@ -1,4 +1,4 @@
-package sample;
+package ui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,18 +9,16 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Controller {
+public class StartController {
     @FXML
     public void pressButton(ActionEvent event) throws IOException {
-        Parent imagesPageParent = FXMLLoader.load(getClass().getResource("imageScene.fxml"));
-        Scene imageScene = new Scene(imagesPageParent);
+        Parent questionPageParent = FXMLLoader.load(getClass().getResource("questionScene.fxml"));
+        Scene questionScene = new Scene(questionPageParent);
 
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        appStage.setScene(imageScene);
+        appStage.setScene(questionScene);
         appStage.show();
 
     }
