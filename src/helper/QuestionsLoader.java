@@ -9,7 +9,7 @@ import java.util.*;
 public class QuestionsLoader {
 
     private static List<Question> questions = new ArrayList<>();
-    private static final int NR_QUESTIONS = 3;
+    private static final int NR_QUESTIONS = 4;
 
     public static List<Question> load() {
         if (questions.isEmpty()) {
@@ -35,6 +35,9 @@ public class QuestionsLoader {
                     question.setNextQuestionIdIfTrue(Integer.parseInt(properties.getProperty("question" + i + ".ifTrue")));
                     question.setNextQuestionIdIfFalse(Integer.parseInt(properties.getProperty("question" + i + ".ifFalse")));
                     question.setRequiredPoints(Integer.parseInt(properties.getProperty("question" + i + ".threshold")));
+                    question.setVariableName(properties.getProperty("question" + i + ".variable"));
+                    question.setVariableType(properties.getProperty("question" + i + ".variable.type"));
+                    question.setVariableValue(properties.getProperty("question" + i + ".variable.value"));
                     questions.add(question);
 
                 }
