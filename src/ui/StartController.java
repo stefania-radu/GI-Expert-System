@@ -30,11 +30,11 @@ public class StartController {
 
     }
 
-    private void initDomain() {
-        for (Question currentQuestion : questionList) {
-            FileWriterHelper.writeToDomainFile(currentQuestion.getVariableName(), currentQuestion.getVariableValue());
-        }
-    }
+//    private void initDomain() {
+//        for (Question currentQuestion : questionList) {
+//            FileWriterHelper.writeToDomainFile(currentQuestion.getVariableName(), currentQuestion.getVariableValue());
+//        }
+//    }
 }
 
 

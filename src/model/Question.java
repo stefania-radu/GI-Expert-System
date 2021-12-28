@@ -2,7 +2,6 @@ package model;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class Question {
 
@@ -14,9 +13,8 @@ public class Question {
     private Map<Integer, Boolean> givenAnswers;
     private Map<Integer, Integer> weights;
     private Integer requiredPoints;
-    private String variableName;
-    private String variableType;
-    private String variableValue;
+    private Map<String, String> domainEntry;
+    private AnswerValidationType answerType;
 
     public Question(Integer questionId) {
         this.questionId = questionId;
@@ -25,15 +23,6 @@ public class Question {
     public static Question getQuestionById(List<Question> questionList, int id) {
         for (Question question : questionList) {
             if (question.getQuestionId() == id) {
-                return question;
-            }
-        }
-        return null;
-    }
-
-    public static Question geQuestionByVariable(List<Question> questionList, String variableName) {
-        for (Question question : questionList) {
-            if (Objects.equals(question.getVariableName(), variableName)) {
                 return question;
             }
         }
@@ -100,28 +89,37 @@ public class Question {
         this.requiredPoints = requiredPoints;
     }
 
-    public String getVariableName() {
-        return variableName;
+//    public String getVariableName() {
+//        return variableName;
+//    }
+//
+//    public void setVariableName(String variableName) {
+//        this.variableName = variableName;
+//    }
+//
+//    public String getVariableValue() {
+//        return variableValue;
+//    }
+//
+//    public void setVariableValue(String variableValue) {
+//        this.variableValue = variableValue;
+//    }
+
+
+    public Map<String, String> getDomainEntry() {
+        return domainEntry;
     }
 
-    public void setVariableName(String variableName) {
-        this.variableName = variableName;
+    public void setDomainEntry(Map<String, String> domainEntry) {
+        this.domainEntry = domainEntry;
     }
 
-    public String getVariableType() {
-        return variableType;
+    public AnswerValidationType getAnswerType() {
+        return answerType;
     }
 
-    public void setVariableType(String variableType) {
-        this.variableType = variableType;
-    }
-
-    public String getVariableValue() {
-        return variableValue;
-    }
-
-    public void setVariableValue(String variableValue) {
-        this.variableValue = variableValue;
+    public void setAnswerType(AnswerValidationType answerType) {
+        this.answerType = answerType;
     }
 
     @Override
@@ -135,10 +133,14 @@ public class Question {
                 ", givenAnswers=" + givenAnswers +
                 ", weights=" + weights +
                 ", requiredPoints=" + requiredPoints +
-                ", variableName='" + variableName + '\'' +
-                ", variableType='" + variableType + '\'' +
-                ", variableValue='" + variableValue + '\'' +
+                ", domainEntry=" + domainEntry +
+                ", answerType=" + answerType +
                 '}';
+    }
+
+    public void cleanup() {
+//        givenAnswers.clear();
+        domainEntry.clear();
     }
 
     public int evaluatePoints() {
@@ -147,7 +149,9 @@ public class Question {
 
         for (Map.Entry<Integer, Boolean> givenAnswer : givenAnswers.entrySet()) {
             if (givenAnswer.getValue()) {
-                sum += weights.get(givenAnswer.getKey());
+                if (givenAnswer.getKey() != -1) {
+                    sum += weights.get(givenAnswer.getKey());
+                }
             }
         }
 

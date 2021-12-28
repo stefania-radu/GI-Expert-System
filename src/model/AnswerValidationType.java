@@ -1,5 +1,6 @@
 package model;
 
 public enum AnswerValidationType {
-    SINGLE_ANSWER
+    SINGLE_ANSWER,
+    MULTIPLE_ANSWER
 }

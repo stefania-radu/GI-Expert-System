@@ -7,16 +7,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("startScene.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("startScene.fxml")));
         primaryStage.setTitle("Expert System");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
-        FileWriterHelper.openFile();
+//        FileWriterHelper.openFile();
     }
 
 
