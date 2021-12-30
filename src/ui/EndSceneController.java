@@ -1,15 +1,13 @@
 package ui;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.Node;
+import javafx.stage.Stage;
 
 public class EndSceneController {
 
-    @FXML
-    Button endButton;
-
     public void pressButton(ActionEvent event) {
-        System.exit(0);
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appStage.close();
     }
 }

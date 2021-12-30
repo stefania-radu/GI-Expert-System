@@ -22,7 +22,7 @@
             </Lighting>
          </effect>
       </Text>
-      <Button fx:id="btn" layoutX="283.0" layoutY="306.0" mnemonicParsing="false" onAction="#pressButton" prefHeight="68.0" prefWidth="134.0" style="-fx-label-padding: 8 15 15 15; -fx-background-color: #c3c4c4,        linear-gradient(#d6d6d6 50%, white 100%),        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%); -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 ); -fx-background-radius: 20; -fx-background-insets: 0,1,1;;" text="START">
+      <Button fx:id="btn" layoutX="283.0" layoutY="306.0" mnemonicParsing="false" onAction="#pressButton" prefHeight="68.0" prefWidth="134.0" stylesheets="@../styles/style.css" text="START">
          <font>
             <Font size="23.0" />
          </font></Button>

@@ -3,32 +3,34 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="523.0" prefWidth="825.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.QuestionSceneController">
+<AnchorPane prefHeight="523.0" prefWidth="825.0" style="-fx-background-color: lightgray; -fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 15); -fx-background-insets: 20 10 15 15;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.QuestionSceneController">
    <children>
-      <ImageView fitHeight="261.0" fitWidth="174.0" layoutX="658.0" opacity="0.52" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="261.0" fitWidth="174.0" layoutX="646.0" layoutY="19.0" opacity="0.74" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@gisystem.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="question" alignment="TOP_RIGHT" layoutX="179.0" layoutY="55.0" textAlignment="CENTER" textFill="#1321e4">
+      <Label fx:id="question" alignment="TOP_RIGHT" layoutX="209.0" layoutY="55.0" textAlignment="CENTER" textFill="#2a5058">
          <font>
-            <Font size="20.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Button layoutX="729.0" layoutY="481.0" mnemonicParsing="false" onAction="#changeQuestion" prefHeight="32.0" prefWidth="58.0" text="Next" />
+      <Button layoutX="729.0" layoutY="481.0" mnemonicParsing="false" onAction="#changeQuestion" prefHeight="32.0" prefWidth="58.0" style="-fx-background-color: linear-gradient(darkorange, orange);" stylesheets="@../styles/style.css" text="Next" />
       <VBox fx:id="responsePanel" layoutX="198.0" layoutY="163.0" prefHeight="217.0" prefWidth="381.0" />
       <Label fx:id="errorMessage" layoutX="159.0" layoutY="484.0" prefHeight="26.0" prefWidth="430.0" textFill="#ef0404">
          <font>
             <Font size="14.0" />
          </font></Label>
-      <Separator layoutX="152.0" orientation="VERTICAL" prefHeight="560.0" prefWidth="14.0" />
-      <Button layoutX="24.0" layoutY="142.0" mnemonicParsing="false" onAction="#restartApp" prefHeight="41.0" prefWidth="114.0" text="Restart" />
-      <Button fx:id="domainButton" layoutX="24.0" layoutY="85.0" mnemonicParsing="false" onAction="#pressDomainButton" prefHeight="41.0" prefWidth="114.0" text="See Domain" />
+      <Separator layoutX="171.0" layoutY="19.0" orientation="VERTICAL" prefHeight="535.0" prefWidth="4.0" style="-fx-background-color: darkorange; -fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 15);" />
+      <Button fx:id="domainButton" layoutX="38.0" layoutY="85.0" mnemonicParsing="false" onAction="#pressDomainButton" prefHeight="41.0" prefWidth="114.0" stylesheets="@../styles/style.css" text="See Domain" textFill="WHITE" />
+      <Button layoutX="38.0" layoutY="143.0" mnemonicParsing="false" onAction="#restartApp" prefHeight="41.0" prefWidth="114.0" stylesheets="@../styles/style.css" text="Restart" textFill="#fcfcfc" />
+      <ToggleButton layoutX="38.0" layoutY="198.0" mnemonicParsing="false" onAction="#openPdf" prefHeight="41.0" prefWidth="114.0" styleClass="button" stylesheets="@../styles/style.css" text="Download rules" textFill="WHITE" />
    </children>
 </AnchorPane>

@@ -138,11 +138,6 @@ public class Question {
                 '}';
     }
 
-    public void cleanup() {
-//        givenAnswers.clear();
-        domainEntry.clear();
-    }
-
     public int evaluatePoints() {
 
         int sum = 0;

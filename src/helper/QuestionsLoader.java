@@ -10,7 +10,7 @@ import java.util.*;
 public class QuestionsLoader {
 
     private static List<Question> questions = new ArrayList<>();
-    private static final int NR_QUESTIONS = 4;
+    private static final int NR_QUESTIONS = 6;
 
     public static List<Question> load() {
         if (questions.isEmpty()) {

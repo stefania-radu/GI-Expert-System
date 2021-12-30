@@ -4,6 +4,7 @@ import helper.FileWriterHelper;
 import helper.QuestionsLoader;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -12,19 +13,23 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import logic.RuleProcessor;
 import model.AnswerValidationType;
 import model.Question;
 
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 import static ui.StartController.questionList;
 
@@ -36,16 +41,24 @@ public class QuestionSceneController {
     VBox responsePanel;
     @FXML
     Label errorMessage;
+    @FXML
+    ToggleButton rulesButton;
 
     public static List<Label> variablesLabels = new ArrayList<>();
 
     private static int questionNumber = 1;
+    public static List<Integer> askedQuestionsIds = new ArrayList<>();
+    public static boolean restart = false;
+    public static String pathRules = "conf/rules.pdf";
+    public static RuleProcessor ruleProcessor = new RuleProcessor();
 
     @FXML
     public void initialize() {
 
         responsePanel.setSpacing(10);
         Question currentQuestion = Question.getQuestionById(questionList, questionNumber);
+        askedQuestionsIds.add(questionNumber);
+
         question.setText(currentQuestion.getName());
         ToggleGroup answersGroup = new ToggleGroup();
 
@@ -79,9 +92,14 @@ public class QuestionSceneController {
 
         addNoneAnswer(currentQuestion);
 
-        if(questionNumber == 1) {
+        if (questionNumber == 1) {
+            variablesLabels.clear();
             initLabels();
         }
+//        if (restart) {
+//            variablesLabels.clear();
+//            initLabels();
+//        }
     }
 
     private void addNoneAnswer(Question currentQuestion) {
@@ -100,8 +118,6 @@ public class QuestionSceneController {
                 }
             });
             responsePanel.getChildren().add(noneAnswer);
-
-
         }
     }
 
@@ -135,6 +151,7 @@ public class QuestionSceneController {
 
             }
 
+            ruleProcessor.applyInference();
             updateLabels();
 
             System.out.println(currentQuestion);
@@ -201,14 +218,49 @@ public class QuestionSceneController {
     }
 
     private void updateLabels() {
-        int j = 0;
-        for (Question currentQuestion : questionList) {
-            for (Map.Entry<String, String> domainEntry : currentQuestion.getDomainEntry().entrySet()) {
-                String newText = domainEntry.getKey() + ": " + domainEntry.getValue();
+        int j = 0, qNr = 1;
+        List<Integer> ids = new ArrayList<>();
+
+        for (Map.Entry<String, String> entry : ruleProcessor.getDomainEntries().entrySet()) {
+            String newText = entry.getKey() + ": " + entry.getValue();
+            if (j >= variablesLabels.size()) {
+                Label newLabel = new Label(entry.getKey() + ": " + entry.getValue());
+                variablesLabels.add(newLabel);
+            } else {
                 variablesLabels.get(j).setText(newText);
-                j++;
             }
+
+            j++;
         }
+
+//        for (Question currentQuestion : questionList) {
+//            StringBuilder explainLabel = new StringBuilder();
+//
+//            for (Map.Entry<String, String> domainEntry : currentQuestion.getDomainEntry().entrySet()) {
+//                String newText = domainEntry.getKey() + ": " + domainEntry.getValue();
+//
+//                if (askedQuestionsIds.contains(qNr)) {
+//                    if (currentQuestion.getAnswerType() == AnswerValidationType.SINGLE_ANSWER) {
+//                        for (Map.Entry<Integer, Boolean> givenAnswer : currentQuestion.getGivenAnswers().entrySet()) {
+//                            if (givenAnswer.getValue()) {
+//                                ids.add(givenAnswer.getKey());
+//                            }
+//                        }
+//                        for (Integer id : ids) {
+//                            explainLabel.append(currentQuestion.getPossibleAnswers().get(id));
+//                            explainLabel.append(", ");
+//                        }
+//                    }
+//
+//                    newText += " (" + explainLabel + ")";
+//                }
+//                variablesLabels.get(j).setText(newText);
+//
+//                j++;
+//            }
+//            qNr++;
+//            ids.clear();
+//        }
     }
 
 
@@ -225,24 +277,42 @@ public class QuestionSceneController {
 
     @FXML
     private void restartApp(ActionEvent event) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("startScene.fxml"));
+        restart = true;
+
+        reloadModel();
 
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        questionList.clear();
-        questionList = QuestionsLoader.load();
-        for (Question question : questionList) {
-            question.cleanup();
-        }
-        initialize();
-
         appStage.close();
 
         Main main = new Main();
         main.start(new Stage());
 
-
     }
+
+    private void reloadModel() {
+        questionList.clear();
+        questionList = QuestionsLoader.load();
+        questionNumber = 1;
+//        askedQuestionsIds.clear();
+
+        initialize();
+        errorMessage.setText("");
+    }
+
+    @FXML
+    private void openPdf(ActionEvent event) {
+        File rulesFile = new File(pathRules);
+        if (Desktop.isDesktopSupported()) {
+            new Thread(() -> {
+                try {
+                    Desktop.getDesktop().open(rulesFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+    }
+
 
 }
 
