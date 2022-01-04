@@ -1,6 +1,5 @@
 package ui;
 
-import helper.FileWriterHelper;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,9 +15,10 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("startScene.fxml")));
         primaryStage.setTitle("Expert System");
         primaryStage.setScene(new Scene(root));
+        primaryStage.setResizable(false);
         primaryStage.show();
 
-//        FileWriterHelper.openFile();
+
     }
 
 

@@ -1,21 +1,14 @@
 package ui;
 
-import helper.FileWriterHelper;
 import helper.QuestionsLoader;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.binding.Bindings;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -24,12 +17,11 @@ import logic.RuleProcessor;
 import model.AnswerValidationType;
 import model.Question;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 import static ui.StartController.questionList;
 
@@ -41,8 +33,6 @@ public class QuestionSceneController {
     VBox responsePanel;
     @FXML
     Label errorMessage;
-    @FXML
-    ToggleButton rulesButton;
 
     public static List<Label> variablesLabels = new ArrayList<>();
 
@@ -94,12 +84,10 @@ public class QuestionSceneController {
 
         if (questionNumber == 1) {
             variablesLabels.clear();
-            initLabels();
+            ruleProcessor.setRules();
+            ruleProcessor.applyInference();
+            updateLabels();
         }
-//        if (restart) {
-//            variablesLabels.clear();
-//            initLabels();
-//        }
     }
 
     private void addNoneAnswer(Question currentQuestion) {
@@ -164,7 +152,9 @@ public class QuestionSceneController {
         questionNumber = currentQuestion.evaluatePoints();
         if (questionNumber == 0) {
             showEndScene(event);
-//            FileWriterHelper.cleanDomainFile();
+        } else if (questionNumber == -1) {
+            //
+
         } else {
             responsePanel.getChildren().clear();
             initialize();
@@ -185,10 +175,6 @@ public class QuestionSceneController {
             isValid = false;
         }
 
-        if (validationType == AnswerValidationType.MULTIPLE_ANSWER && nrCheckedBoxes == 1 && givenAnswers.get(-1)) {
-
-        }
-
         return isValid;
     }
 
@@ -201,66 +187,43 @@ public class QuestionSceneController {
 
         Parent domainParent = FXMLLoader.load(getClass().getResource("domainScene.fxml"));
         Scene domainScene = new Scene(domainParent);
+        domainStage.setResizable(false);
 
         domainStage.setScene(domainScene);
         domainStage.showAndWait();
 
     }
 
-    private void initLabels() {
-        for(Question q : questionList) {
-            for (Map.Entry<String, String> domainEntry : q.getDomainEntry().entrySet()) {
-                Label domainEntryLabel = new Label(domainEntry.getKey() + ": " + domainEntry.getValue());
-                domainEntryLabel.setFont(new Font("Verdana", 16));
-                variablesLabels.add(domainEntryLabel);
-            }
-        }
-    }
-
     private void updateLabels() {
-        int j = 0, qNr = 1;
-        List<Integer> ids = new ArrayList<>();
+        int j = 0;
 
         for (Map.Entry<String, String> entry : ruleProcessor.getDomainEntries().entrySet()) {
-            String newText = entry.getKey() + ": " + entry.getValue();
+
+            String newText = j + ". " + entry.getKey() + ": " + entry.getValue();
+
             if (j >= variablesLabels.size()) {
-                Label newLabel = new Label(entry.getKey() + ": " + entry.getValue());
+                Label newLabel = new Label(newText);
                 variablesLabels.add(newLabel);
+                newLabel.setFont(new Font("Verdana", 16));
             } else {
-                variablesLabels.get(j).setText(newText);
+                if (!Objects.equals(variablesLabels.get(j).getText(), newText)) {
+                    variablesLabels.get(j).setText(newText);
+
+                    if (j < 46) {
+                        variablesLabels.get(j).setStyle("-fx-text-fill: red");
+                    } else if (j < 54) {
+                        variablesLabels.get(j).setStyle("-fx-text-fill: green");
+                    } else if (j < 57) {
+                        variablesLabels.get(j).setStyle("-fx-text-fill: blue");
+                    }
+
+                }
             }
+
 
             j++;
         }
 
-//        for (Question currentQuestion : questionList) {
-//            StringBuilder explainLabel = new StringBuilder();
-//
-//            for (Map.Entry<String, String> domainEntry : currentQuestion.getDomainEntry().entrySet()) {
-//                String newText = domainEntry.getKey() + ": " + domainEntry.getValue();
-//
-//                if (askedQuestionsIds.contains(qNr)) {
-//                    if (currentQuestion.getAnswerType() == AnswerValidationType.SINGLE_ANSWER) {
-//                        for (Map.Entry<Integer, Boolean> givenAnswer : currentQuestion.getGivenAnswers().entrySet()) {
-//                            if (givenAnswer.getValue()) {
-//                                ids.add(givenAnswer.getKey());
-//                            }
-//                        }
-//                        for (Integer id : ids) {
-//                            explainLabel.append(currentQuestion.getPossibleAnswers().get(id));
-//                            explainLabel.append(", ");
-//                        }
-//                    }
-//
-//                    newText += " (" + explainLabel + ")";
-//                }
-//                variablesLabels.get(j).setText(newText);
-//
-//                j++;
-//            }
-//            qNr++;
-//            ids.clear();
-//        }
     }
 
 
@@ -293,7 +256,6 @@ public class QuestionSceneController {
         questionList.clear();
         questionList = QuestionsLoader.load();
         questionNumber = 1;
-//        askedQuestionsIds.clear();
 
         initialize();
         errorMessage.setText("");

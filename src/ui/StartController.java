@@ -1,6 +1,5 @@
 package ui;
 
-import helper.FileWriterHelper;
 import helper.QuestionsLoader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,21 +19,20 @@ public class StartController {
 
     @FXML
     public void pressButton(ActionEvent event) throws IOException {
+
         Parent questionPageParent = FXMLLoader.load(getClass().getResource("questionScene.fxml"));
+
         Scene questionScene = new Scene(questionPageParent);
 
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
+        appStage.setResizable(false);
+
         appStage.setScene(questionScene);
+
         appStage.show();
 
     }
-
-//    private void initDomain() {
-//        for (Question currentQuestion : questionList) {
-//            FileWriterHelper.writeToDomainFile(currentQuestion.getVariableName(), currentQuestion.getVariableValue());
-//        }
-//    }
 }
 
 
