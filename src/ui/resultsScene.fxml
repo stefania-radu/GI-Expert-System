@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="305.0" prefWidth="502.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.ResultsSceneController">
+   <children>
+      <ImageView fitHeight="168.0" fitWidth="157.0" layoutX="172.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@results.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="74.0" layoutY="27.0" prefHeight="69.0" prefWidth="354.0" text="Results generated successfully as a pdf! Thank you for using our Expert System!" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Button layoutX="411.0" layoutY="232.0" mnemonicParsing="false" onAction="#pressButton" prefHeight="35.0" prefWidth="63.0" stylesheets="@../styles/nextButton.css" text="EXIT" />
+   </children>
+</AnchorPane>
