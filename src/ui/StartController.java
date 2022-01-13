@@ -15,7 +15,10 @@ import java.util.List;
 
 public class StartController {
 
-    public static List<Question> questionList = QuestionsLoader.load();
+    public static List<Question> questionList = QuestionsLoader.loadQuestions();
+
+    public StartController() {
+    }
 
     @FXML
     public void pressButton(ActionEvent event) throws IOException {

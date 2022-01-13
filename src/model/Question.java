@@ -15,6 +15,7 @@ public class Question {
     private Integer requiredPoints;
     private Map<String, String> domainEntry;
     private AnswerValidationType answerType;
+    private String picturePath;
 
     public Question(Integer questionId) {
         this.questionId = questionId;
@@ -89,22 +90,6 @@ public class Question {
         this.requiredPoints = requiredPoints;
     }
 
-//    public String getVariableName() {
-//        return variableName;
-//    }
-//
-//    public void setVariableName(String variableName) {
-//        this.variableName = variableName;
-//    }
-//
-//    public String getVariableValue() {
-//        return variableValue;
-//    }
-//
-//    public void setVariableValue(String variableValue) {
-//        this.variableValue = variableValue;
-//    }
-
 
     public Map<String, String> getDomainEntry() {
         return domainEntry;
@@ -120,6 +105,14 @@ public class Question {
 
     public void setAnswerType(AnswerValidationType answerType) {
         this.answerType = answerType;
+    }
+
+    public String getPicturePath() {
+        return picturePath;
+    }
+
+    public void setPicturePath(String picturePath) {
+        this.picturePath = picturePath;
     }
 
     @Override

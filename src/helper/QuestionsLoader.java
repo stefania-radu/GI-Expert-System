@@ -3,19 +3,19 @@ package helper;
 import model.AnswerValidationType;
 import model.Question;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 public class QuestionsLoader {
 
     private static List<Question> questions = new ArrayList<>();
-    private static final int NR_QUESTIONS = 33;
+    private static final int NR_QUESTIONS = 34;
 
-    public static List<Question> load() {
+    public static List<Question> loadQuestions() {
         if (questions.isEmpty()) {
 
-            try (FileInputStream inputStream = new FileInputStream("conf/questions.properties")) {
+            try (InputStream inputStream = QuestionsLoader.class.getResourceAsStream("questions.properties")) {
 
                 Properties properties = new Properties();
                 properties.load(inputStream);
@@ -51,6 +51,7 @@ public class QuestionsLoader {
                     question.setNextQuestionIdIfFalse(Integer.parseInt(properties.getProperty("question" + i + ".ifFalse")));
                     question.setRequiredPoints(Integer.parseInt(properties.getProperty("question" + i + ".threshold")));
                     question.setDomainEntry(variableByValues);
+                    question.setPicturePath(properties.getProperty("question" + i + ".picture"));
                     questions.add(question);
 
                 }

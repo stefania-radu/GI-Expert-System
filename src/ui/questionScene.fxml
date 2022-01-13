@@ -4,33 +4,29 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="594.0" prefWidth="955.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.QuestionSceneController">
+<AnchorPane prefHeight="668.0" prefWidth="1075.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.QuestionSceneController">
    <children>
-      <ImageView fitHeight="261.0" fitWidth="174.0" layoutX="788.0" layoutY="7.0" opacity="0.74" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@gisystem.jpg" />
-         </image>
-      </ImageView>
-      <Label fx:id="question" alignment="TOP_LEFT" layoutX="209.0" layoutY="55.0" prefHeight="119.0" prefWidth="531.0" textAlignment="JUSTIFY" textFill="#2a5058" wrapText="true">
+      <ImageView fx:id="questionImage" fitHeight="261.0" fitWidth="304.0" layoutX="771.0" opacity="0.86" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="question" alignment="TOP_LEFT" layoutX="212.0" layoutY="33.0" prefHeight="119.0" prefWidth="531.0" textAlignment="JUSTIFY" textFill="#2a5058" wrapText="true">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <VBox fx:id="responsePanel" layoutX="226.0" layoutY="198.0" prefHeight="365.0" prefWidth="531.0" />
-      <Label fx:id="errorMessage" layoutX="188.0" layoutY="513.0" prefHeight="26.0" prefWidth="430.0" textFill="#ef0404">
+      <VBox fx:id="responsePanel" layoutX="212.0" layoutY="130.0" prefHeight="485.0" prefWidth="531.0" />
+      <Label fx:id="errorMessage" layoutX="190.0" layoutY="595.0" prefHeight="26.0" prefWidth="430.0" textFill="#ef0404">
          <font>
             <Font size="14.0" />
-         </font></Label>
-      <Separator layoutX="171.0" orientation="VERTICAL" prefHeight="594.0" prefWidth="4.0" style="-fx-background-color: linear-gradient(orangered, darkorange); -fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 15);" />
-      <Button fx:id="domainButton" layoutX="26.0" layoutY="83.0" mnemonicParsing="false" onAction="#pressDomainButton" prefHeight="41.0" prefWidth="114.0" stylesheets="@../styles/style.css" text="See Domain" textFill="WHITE" />
-      <Button layoutX="26.0" layoutY="206.0" mnemonicParsing="false" onAction="#restartApp" prefHeight="41.0" prefWidth="114.0" stylesheets="@../styles/style.css" text="Restart" textFill="#fcfcfc" />
-      <ToggleButton layoutX="26.0" layoutY="144.0" mnemonicParsing="false" onAction="#openPdf" prefHeight="41.0" prefWidth="114.0" styleClass="button" stylesheets="@../styles/style.css" text="Download rules" textFill="WHITE" />
-      <Button layoutX="842.0" layoutY="516.0" mnemonicParsing="false" onAction="#changeQuestion" prefHeight="32.0" prefWidth="58.0" style="-fx-background-color: linear-gradient(orangered, darkorange);" stylesheets="@../styles/style.css" text="Next" />
+         </font>
+      </Label>
+      <Separator layoutX="171.0" orientation="VERTICAL" prefHeight="668.0" prefWidth="11.0" style="-fx-background-color: linear-gradient(orangered, darkorange); -fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 15);" />
+      <Button fx:id="domainButton" layoutX="26.0" layoutY="75.0" mnemonicParsing="false" onAction="#pressDomainButton" prefHeight="49.0" prefWidth="114.0" stylesheets="@../styles/styleGreenButtons.css" text="See Domain" textFill="WHITE" />
+      <Button layoutX="26.0" layoutY="211.0" mnemonicParsing="false" onAction="#restartApp" prefHeight="49.0" prefWidth="114.0" stylesheets="@../styles/styleGreenButtons.css" text="Restart" textFill="#fcfcfc" />
+      <ToggleButton layoutX="26.0" layoutY="144.0" mnemonicParsing="false" onAction="#openPdf" prefHeight="49.0" prefWidth="114.0" styleClass="button" stylesheets="@../styles/styleGreenButtons.css" text="Download rules" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+      <Button fx:id="nextButton" layoutX="936.0" layoutY="588.0" mnemonicParsing="false" onAction="#changeQuestion" prefHeight="41.0" prefWidth="83.0" stylesheets="@../styles/nextButton.css" text="Next" />
    </children>
 </AnchorPane>
